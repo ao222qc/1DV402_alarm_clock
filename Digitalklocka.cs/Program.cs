@@ -11,9 +11,25 @@ namespace Digitalklocka.cs
         {
             AlarmClock test = new AlarmClock();
 
+            
 
-            test.AlarmHour = 23;
 
+            for (int i = 0; i < 240; i++)
+            {
+                Console.WriteLine(test.ToString());
+                test.TickTock();
+                
+
+                //if (test.TickTock() == true)
+                //{
+                //    Console.BackgroundColor = ConsoleColor.Blue;
+                //    Console.Write(test.ToString());
+                //    Console.WriteLine("    BEEP BEEP BEEP!!");
+                //    Console.ResetColor();
+                //}
+              
+
+            }
 
             
             

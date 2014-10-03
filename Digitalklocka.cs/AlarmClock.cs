@@ -67,7 +67,7 @@ namespace Digitalklocka.cs
             }
         }
 
-        public AlarmClock()
+        public AlarmClock() 
             :this(0, 0)
         {    
             //Tolkar som att konstr. anropar konstr. med 2 argument, hour 0 å minute 0.
@@ -95,6 +95,11 @@ namespace Digitalklocka.cs
                 _minute = 0;
                 _hour++;
             }
+            if (_hour > 23)
+            {
+                _hour = 0;
+                _minute++;
+            }
 
             if (_hour == _alarmHour && _minute == _alarmMinute)
             {                
@@ -107,7 +112,31 @@ namespace Digitalklocka.cs
         }
         public string ToString()
         {
-            return "hej";
+            StringBuilder plupp = new StringBuilder();
+
+            plupp.AppendFormat("{0}:", _hour);
+            if (_minute < 10)
+            {
+                plupp.AppendFormat("0{0}-----", _minute);
+            }
+            else
+            {
+                plupp.AppendFormat("{0}-----", _minute);
+            }
+            plupp.AppendFormat("<{0}:", _alarmHour);
+
+            if (_alarmMinute < 10)
+            {
+                plupp.AppendFormat("0{0}>", _alarmMinute);
+            }
+            else
+            {
+                plupp.AppendFormat("{0}>", _alarmMinute);
+            }
+
+            
+            return plupp.ToString();
+
         }
     }
 }
