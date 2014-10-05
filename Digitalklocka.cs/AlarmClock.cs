@@ -19,7 +19,7 @@ namespace Digitalklocka.cs
 
             set {
                 if (value < 0 || value > 23)
-                { throw new ArgumentException(); }
+                { throw new ArgumentException("Alarm Hour is not in the interval 0-23."); }
                 
                 _alarmHour = value;
                 }
@@ -32,7 +32,7 @@ namespace Digitalklocka.cs
             set
             {
                 if (value < 0 || value > 59)
-                { throw new ArgumentException(); }
+                { throw new ArgumentException("Alarm Minute is not in the interval 0-59."); }
 
                 _alarmMinute = value;
             }
@@ -42,16 +42,19 @@ namespace Digitalklocka.cs
         {
             get { return _hour; }
 
+
+      
             set
             {
-                if (value > 23 || value < 0)
-                {
-                    throw new ArgumentException(); 
-                }
-                
+                 if (value < 0 || value > 23)
+                    {
+                         throw new ArgumentException("Hour is not in the interval 0-23."); 
+                    }
                _hour = value;
             }
-        }//egenskap som kontrollerar värden innan de tilldelas till fält
+        }
+     
+        //egenskap som kontrollerar värden innan de tilldelas till fält
 
         public int Minute
         {
@@ -60,8 +63,8 @@ namespace Digitalklocka.cs
             {
                 if (value < 0 || value > 59)
                 {
-                   
-                   throw new ArgumentException();
+
+                    throw new ArgumentException("Minute is not in the interval 0-59.");
                 }
 
                 _minute = value;
@@ -82,7 +85,7 @@ namespace Digitalklocka.cs
 
         public AlarmClock(int hour, int minute, int alarmHour, int alarmMinute)
             
-        {
+        {             
             Hour = hour;
             Minute = minute;
             AlarmHour = alarmHour;

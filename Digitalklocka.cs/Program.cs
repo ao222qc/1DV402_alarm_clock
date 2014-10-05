@@ -7,105 +7,112 @@ namespace Digitalklocka.cs
 {
     class Program
     {
+       
         static void Main(string[] args)
         {
+            string headerLine = "\n===========================================================\n";
+
             AlarmClock test1 = new AlarmClock();
 
-            Console.WriteLine("Test 1.");
-            Console.WriteLine("Test of standard ctor.");
+            ViewTestHeader(headerLine);
+            ViewTestHeader("Test 1");
+            ViewTestHeader("Test of standard constructor.");
             Console.WriteLine(test1.ToString()); //anropar ToString som skriver ut det som genereras när objektet initieras.
-            Console.WriteLine("\n");
-
+            
             AlarmClock test2 = new AlarmClock(9, 42);
-            Console.WriteLine("Test 2.");
-            Console.WriteLine("Test of constructor with two parameters.");
+            ViewTestHeader(headerLine);
+            ViewTestHeader("Test 2.");
+            ViewTestHeader("Check constructor with two parameters.");
             Console.WriteLine(test2.ToString());
-            Console.WriteLine("\n");
-
-
+            
             AlarmClock test3 = new AlarmClock(13, 24, 7, 35);
-            Console.WriteLine("Test 3.");
-            Console.WriteLine("Test of constructor with four parameters.");
+            ViewTestHeader(headerLine);
+            ViewTestHeader("Test 3");
+            ViewTestHeader("Test of constructor with four parameters.");
             Console.WriteLine(test3.ToString());
-            Console.WriteLine("\n");
-
-            AlarmClock test4 = new AlarmClock(23, 58);
-            Console.WriteLine("Test 4.");
-            Console.WriteLine("Test of TickTock method.");
-            for (int i = 0; i < 13; i++)
-            {
-                test4.TickTock();
-                Console.WriteLine(test4.ToString()); //Anropa och skriv ut resultat ett visst antal gånger, bestäms utav forloopen.
-            }
-            Console.WriteLine("\n");
-
+            
+            AlarmClock test4 = new AlarmClock(23, 58, 7, 35);
+            ViewTestHeader(headerLine);
+            ViewTestHeader("Test 4.");
+            ViewTestHeader("Test of TickTock Method.");         
+            Run(test4, 13); //skickar med argument in i metoden, som håller fast det som objektet initierats med samt "antal minuter" det ska köras.
+            
             AlarmClock test5 = new AlarmClock(6, 12, 6, 15);
-            Console.WriteLine("Test 5.");
-            Console.WriteLine("Test of TickTock and Alarm.");
-            for (int j = 0; j < 6; j++)
+            ViewTestHeader(headerLine);
+            ViewTestHeader("Test 5.");
+            ViewTestHeader("Test of TickTock and Alarm.");
+            Run(test5, 6); //samma som i test 4.
+
+            ViewTestHeader(headerLine);
+            ViewTestHeader("Test 6.");
+            ViewTestHeader("Check that properties all throw exceptions when they should.");
+            AlarmClock WrongTime = new AlarmClock();   
+            try
+            {WrongTime.Hour = 24;}
+            catch (ArgumentException a)
+            {ViewErrorMessage(a.Message);}
+            try
+            { WrongTime.Minute = 61; }
+            catch (ArgumentException a)
+            { ViewErrorMessage(a.Message); }
+            try
+            { WrongTime.AlarmHour = 24; }
+            catch (ArgumentException a)
+            {ViewErrorMessage(a.Message);}
+            try
+            { WrongTime.AlarmMinute = 61; }
+            catch (ArgumentException a)
+            { ViewErrorMessage(a.Message); }
+
+            ViewTestHeader(headerLine);
+            ViewTestHeader("Test 7.");
+            ViewTestHeader("Check that constructors can't be given invalid values.");
+            try
+            { AlarmClock WrongTimeConstructor = new AlarmClock(24, 0); }
+            catch (ArgumentException a)
+            { ViewErrorMessage(a.Message); }
+            try
+            { AlarmClock WrongTimeConstructor = new AlarmClock(0, 61); }
+            catch (ArgumentException a)
+            { ViewErrorMessage(a.Message); }          
+        }
+
+       private static void Run(AlarmClock ac, int minutes)
+        {
+            for (int i = 0; i < minutes; i++)
             {
-                if (test5.TickTock() == true) //Testar samt anropar TickTock i ett svep, när den returnerar true "går alarmet".
+                if (ac.TickTock() == true)
                 {
                     Console.BackgroundColor = ConsoleColor.Blue;
                     Console.ForegroundColor = ConsoleColor.White;
-                    Console.WriteLine("{0} BEEP BEEP BEEP! If you snooze you lose!", test5.ToString());
+                    Console.WriteLine("{0} BEEP BEEP BEEP! If you snooze you lose!", ac.ToString());
                     Console.ResetColor();
                 }
-                else
-                { Console.WriteLine(test5.ToString()); } //Skriv ut resultat efter att TickTock anropas om den returnerar false (ej alarm)
-            }
-            Console.WriteLine("\n");
 
-            
-
-     
-
-
-            //AlarmClock test6 = new AlarmClock(24, 61, 25, 70);
-            //Console.WriteLine(test6.ToString());
-
-
-
-
-
-
-
-            //for (int i = 0; i < 13; i++)
-            //{
-            //    Console.WriteLine(test.ToString());
-            //    test1.TickTock();
-
-            //}
-            //Console.WriteLine(test.ToString());
-            
-
-
-
-
-            //for (int i = 0; i < 240; i++)
-            //{
-            //    Console.WriteLine(test.ToString());
-            //    test.TickTock();
+                else 
+                {
+                    Console.WriteLine(ac.ToString());
+                }
                 
+            }
 
-                //if (test.TickTock() == true)
-                //{
-                //    Console.BackgroundColor = ConsoleColor.Blue;
-                //    Console.Write(test.ToString());
-                //    Console.WriteLine("    BEEP BEEP BEEP!!");
-                //    Console.ResetColor();
-                //}
-              
 
-            //}
-
-            
-            
-            
-            
-
-           
-            
         }
+
+       private static void ViewErrorMessage(string message)
+       {
+           Console.BackgroundColor = ConsoleColor.DarkRed;
+           Console.WriteLine(message);
+           Console.ResetColor();
+       }
+
+       private static void ViewTestHeader(string header)
+       {
+           Console.WriteLine(header);
+       }
     }
+    
+    
+    
+     
 }
