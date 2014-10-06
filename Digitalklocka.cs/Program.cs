@@ -10,34 +10,34 @@ namespace Digitalklocka.cs
        
         static void Main(string[] args)
         {
-            string headerLine = "\n===========================================================\n";
+            string HorizontalLine = "\n===========================================================\n";
 
             AlarmClock test1 = new AlarmClock();
-            ViewTestHeader(headerLine);
+            ViewTestHeader(HorizontalLine);
             ViewTestHeader("Test 1.\nTest of standard constructor.");
-            Console.WriteLine(test1.ToString()); //anropar ToString som skriver ut det som genereras när objektet initieras.
+            ViewTestHeader(test1.ToString()); //anropar ToString som skriver ut det som genereras när objektet initieras.
             
             AlarmClock test2 = new AlarmClock(9, 42);
-            ViewTestHeader(headerLine);
+            ViewTestHeader(HorizontalLine);
             ViewTestHeader("Test 2.\nCheck constructor with two parameters. ");
-            Console.WriteLine(test2.ToString());
+            ViewTestHeader(test2.ToString());
             
             AlarmClock test3 = new AlarmClock(13, 24, 7, 35);
-            ViewTestHeader(headerLine);
+            ViewTestHeader(HorizontalLine);
             ViewTestHeader("Test 3.\n Test of constructor with four parameters.");
-            Console.WriteLine(test3.ToString());
+            ViewTestHeader(test3.ToString());
             
             AlarmClock test4 = new AlarmClock(23, 58, 7, 35);
-            ViewTestHeader(headerLine);
+            ViewTestHeader(HorizontalLine);
             ViewTestHeader("Test 4.\nTest of TickTock Method.");       
             Run(test4, 13); //skickar med argument in i metoden, som håller fast det som objektet initierats med samt "antal minuter" det ska köras.
             
             AlarmClock test5 = new AlarmClock(6, 12, 6, 15);
-            ViewTestHeader(headerLine);
+            ViewTestHeader(HorizontalLine);
             ViewTestHeader("Test 5.\nTest of TickTock and Alarm.");
             Run(test5, 6); //samma som i test 4.
 
-            ViewTestHeader(headerLine);
+            ViewTestHeader(HorizontalLine);
             ViewTestHeader("Test 6.\nCheck that properties all throw exceptions when they should.");
             AlarmClock WrongTime = new AlarmClock();   
             try
@@ -60,7 +60,7 @@ namespace Digitalklocka.cs
             //Här tilldelar jag egenskaperna felaktiga värden en åt gången, inom try-catch.
             //Lämpligt felmeddelande visas när undantaget kastas och fångas.
 
-            ViewTestHeader(headerLine);
+            ViewTestHeader(HorizontalLine);
             ViewTestHeader("Test 7.\nCheck that constructors can't be given invalid values.");
             try
             { AlarmClock WrongTimeConstructor = new AlarmClock(24, 0); }
