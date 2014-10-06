@@ -13,39 +13,32 @@ namespace Digitalklocka.cs
             string headerLine = "\n===========================================================\n";
 
             AlarmClock test1 = new AlarmClock();
-
             ViewTestHeader(headerLine);
-            ViewTestHeader("Test 1");
-            ViewTestHeader("Test of standard constructor.");
+            ViewTestHeader("Test 1.\nTest of standard constructor.");
             Console.WriteLine(test1.ToString()); //anropar ToString som skriver ut det som genereras när objektet initieras.
             
             AlarmClock test2 = new AlarmClock(9, 42);
             ViewTestHeader(headerLine);
-            ViewTestHeader("Test 2.");
-            ViewTestHeader("Check constructor with two parameters.");
+            ViewTestHeader("Test 2.\nCheck constructor with two parameters. ");
             Console.WriteLine(test2.ToString());
             
             AlarmClock test3 = new AlarmClock(13, 24, 7, 35);
             ViewTestHeader(headerLine);
-            ViewTestHeader("Test 3");
-            ViewTestHeader("Test of constructor with four parameters.");
+            ViewTestHeader("Test 3.\n Test of constructor with four parameters.");
             Console.WriteLine(test3.ToString());
             
             AlarmClock test4 = new AlarmClock(23, 58, 7, 35);
             ViewTestHeader(headerLine);
-            ViewTestHeader("Test 4.");
-            ViewTestHeader("Test of TickTock Method.");         
+            ViewTestHeader("Test 4.\nTest of TickTock Method.");       
             Run(test4, 13); //skickar med argument in i metoden, som håller fast det som objektet initierats med samt "antal minuter" det ska köras.
             
             AlarmClock test5 = new AlarmClock(6, 12, 6, 15);
             ViewTestHeader(headerLine);
-            ViewTestHeader("Test 5.");
-            ViewTestHeader("Test of TickTock and Alarm.");
+            ViewTestHeader("Test 5.\nTest of TickTock and Alarm.");
             Run(test5, 6); //samma som i test 4.
 
             ViewTestHeader(headerLine);
-            ViewTestHeader("Test 6.");
-            ViewTestHeader("Check that properties all throw exceptions when they should.");
+            ViewTestHeader("Test 6.\nCheck that properties all throw exceptions when they should.");
             AlarmClock WrongTime = new AlarmClock();   
             try
             {WrongTime.Hour = 24;}
@@ -64,9 +57,11 @@ namespace Digitalklocka.cs
             catch (ArgumentException a)
             { ViewErrorMessage(a.Message); }
 
+            //Här tilldelar jag egenskaperna felaktiga värden en åt gången, inom try-catch.
+            //Lämpligt felmeddelande visas när undantaget kastas och fångas.
+
             ViewTestHeader(headerLine);
-            ViewTestHeader("Test 7.");
-            ViewTestHeader("Check that constructors can't be given invalid values.");
+            ViewTestHeader("Test 7.\nCheck that constructors can't be given invalid values.");
             try
             { AlarmClock WrongTimeConstructor = new AlarmClock(24, 0); }
             catch (ArgumentException a)
@@ -75,9 +70,10 @@ namespace Digitalklocka.cs
             { AlarmClock WrongTimeConstructor = new AlarmClock(0, 61); }
             catch (ArgumentException a)
             { ViewErrorMessage(a.Message); }          
+            //Samma test utav felaktiga värden som i test 6, men här skickas värden via konstruktorer
+            // som i sin tur skickar värden till egenskaperna där undantag kastas.
         }
-
-       private static void Run(AlarmClock ac, int minutes)
+       private static void Run(AlarmClock ac, int minutes) //Skicka med objekt/referens samt antal minuter/ggr programmet ska köra ticktock.
         {
             for (int i = 0; i < minutes; i++)
             {
@@ -99,7 +95,7 @@ namespace Digitalklocka.cs
 
         }
 
-       private static void ViewErrorMessage(string message)
+       private static void ViewErrorMessage(string message) //Anropas för att skriva ut felmeddelande. Mainmetoden är för fint för sånt.
        {
            Console.BackgroundColor = ConsoleColor.DarkRed;
            Console.WriteLine(message);
@@ -109,10 +105,6 @@ namespace Digitalklocka.cs
        private static void ViewTestHeader(string header)
        {
            Console.WriteLine(header);
-       }
-    }
-    
-    
-    
-     
+       } //anropas för att skriva ut meddelande.
+    } 
 }

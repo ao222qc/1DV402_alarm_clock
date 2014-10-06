@@ -15,11 +15,11 @@ namespace Digitalklocka.cs
         public int AlarmHour
         {
             get
-            { return _alarmHour; }
+            { return _alarmHour; } //När värdet är godkänt utav if-satsen tilldelas fältet värdet.
 
             set {
                 if (value < 0 || value > 23)
-                { throw new ArgumentException("Alarm Hour is not in the interval 0-23."); }
+                { throw new ArgumentException("Alarm Hour is not in the interval 0-23."); } //Kastar undantag Arg.Exc och skickar med ett argument till den klassen. Lagras i metoden "Message" vad jag förstår.
                 
                 _alarmHour = value;
                 }
@@ -32,7 +32,7 @@ namespace Digitalklocka.cs
             set
             {
                 if (value < 0 || value > 59)
-                { throw new ArgumentException("Alarm Minute is not in the interval 0-59."); }
+                { throw new ArgumentException("Alarm Minute is not in the interval 0-59."); }//Kastar undantag Arg.Exc och skickar med ett argument till den klassen. Lagras i metoden "Message" vad jag förstår.
 
                 _alarmMinute = value;
             }
@@ -48,14 +48,12 @@ namespace Digitalklocka.cs
             {
                  if (value < 0 || value > 23)
                     {
-                         throw new ArgumentException("Hour is not in the interval 0-23."); 
+                        throw new ArgumentException("Hour is not in the interval 0-23."); //Kastar undantag Arg.Exc och skickar med ett argument till den klassen. Lagras i metoden "Message" vad jag förstår.
                     }
                _hour = value;
             }
-        }
+        } //egenskap som kontrollerar värden innan de tilldelas till fält
      
-        //egenskap som kontrollerar värden innan de tilldelas till fält
-
         public int Minute
         {
             get { return _minute; }
@@ -64,35 +62,36 @@ namespace Digitalklocka.cs
                 if (value < 0 || value > 59)
                 {
 
-                    throw new ArgumentException("Minute is not in the interval 0-59.");
+                    throw new ArgumentException("Minute is not in the interval 0-59.");//Kastar undantag Arg.Exc och skickar med ett argument till den klassen. Lagras i metoden "Message" vad jag förstår.
                 }
 
                 _minute = value;
             }
         }//egenskap som kontrollerar värden innan de tilldelas till fält
 
-        public AlarmClock() 
+        public AlarmClock()  //Anropar konstruktorn som har 2 parameterfält med två argument som är 0 och 0, för att "återställa datan".
             :this(0, 0)
         {    
-            //Anropar konstruktorn som har 2 parameterfält med två argument som är 0 och 0, för att "återställa datan".
+           
         }
 
-        public AlarmClock(int hour, int minute)
+        public AlarmClock(int hour, int minute)//Anropar konstruktor med 4 parameterfält, skickar med hour och minute + återställer alarmdatan till 0.
             :this(hour, minute, 0, 0)
         {
-            //Anropar konstruktor med 4 parameterfält, skickar med hour och minute + återställer alarmdatan till 0.
+            
         }
 
-        public AlarmClock(int hour, int minute, int alarmHour, int alarmMinute)
+        public AlarmClock(int hour, int minute, int alarmHour, int alarmMinute) // skickar med datan till egenskaperna som i sin tur skickar in datan till fälten
             
         {             
             Hour = hour;
             Minute = minute;
             AlarmHour = alarmHour;
             AlarmMinute = alarmMinute;
-            // skickar med datan till egenskaperna som i sin tur skickar in datan till fälten
+           
         }
-        public bool TickTock()
+
+        public bool TickTock()//Metod som "simulerar" att klockan går, har även hand om att kontrollera om tiden når den satta alarmtiden.
         {
             _minute++;
 
@@ -118,20 +117,14 @@ namespace Digitalklocka.cs
             }
             
         }
-        public string ToString() //lagrar sträng och fält i en string, ifsatser bestämmer vad som visas. 
+        public string ToString() //lagrar sträng och fält i en string, ifsatser bestämmer vad som visas så formaten ser bättre ut i konsolfönstret.
         {
             StringBuilder display = new StringBuilder();
 
-            if (_hour < 10)
-            {
+           
                 display.AppendFormat("{0,5}:", _hour);
-            }
-            else
-            {
-             display.AppendFormat("{0,5}:", _hour);
-            }
             
-            if (_minute < 10)
+            if (_minute < 10) //Slänger in en extra nolla när minuten är "entalig".
             {
                 display.AppendFormat("0{0}", _minute);
             }
