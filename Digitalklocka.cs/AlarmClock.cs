@@ -15,7 +15,7 @@ namespace Digitalklocka.cs
         public int AlarmHour
         {
             get
-            { return _alarmHour; } //När värdet är godkänt utav if-satsen tilldelas fältet värdet.
+            { return _alarmHour; } //Om godkänt utav if-satsen tilldelas fältet värdet.
 
             set {
                 if (value < 0 || value > 23)
@@ -93,55 +93,62 @@ namespace Digitalklocka.cs
 
         public bool TickTock()//Metod som "simulerar" att klockan går, har även hand om att kontrollera om tiden når den satta alarmtiden.
         {
-            _minute++;
 
-            if (_minute > 59) //Växlar upp en timme när det gått 60 min.
+            if (Minute < 59)
             {
-                _minute = 0;
-                _hour++;          
+                Minute++;  
+            }
+            else 
+            {
+                Minute = 0;
+                if (Hour < 23)
+                {
+                    Hour++;
+                }
+                else
+                {
+                    Hour = 0;
+                }
             }
 
-            if (_hour > 23) //Nollställer timmar när det gått ett dygn.
-            {
-                _hour = 0;
-            }
-      
-            if (_hour == _alarmHour && _minute == _alarmMinute) //returnerar true när klockan når alarmtiden.
-            {                           
-                return true;
-            }
+            return Hour == AlarmHour && Minute == AlarmMinute;
+
+            //if (_hour == _alarmHour && _minute == _alarmMinute) //returnerar true när klockan når alarmtiden.
+            //{                           
+            //    return true;
+            //}
            
-            else
-            {  
-                return false;
-            }
+            //else
+            //{  
+            //    return false;
+            //}
+            //Rättat.
             
         }
-        public string ToString() //lagrar sträng och fält i en string, ifsatser bestämmer vad som visas så formaten ser bättre ut i konsolfönstret.
+        public override string ToString() //lagrar sträng och fält i en string, ifsatser bestämmer vad som visas så formaten ser bättre ut i konsolfönstret.
         {
             StringBuilder display = new StringBuilder();
 
-           
-                display.AppendFormat("{0,5}:", _hour);
+                display.AppendFormat("{0,5}:", Hour);
             
-            if (_minute < 10) //Slänger in en extra nolla när minuten är "entalig".
+            if (Minute < 10) //Slänger in en extra nolla när minuten är "entalig".
             {
-                display.AppendFormat("0{0}", _minute);
+                display.AppendFormat("0{0}", Minute);
             }
             else
             {
-                display.AppendFormat("{0}", _minute);
+                display.AppendFormat("{0}", Minute);
             }
 
-            display.AppendFormat(" <{0,1}:", _alarmHour);
+            display.AppendFormat(" <{0,1}:", AlarmHour);
 
-            if (_alarmMinute < 10)
+            if (AlarmMinute < 10)
             {
-                display.AppendFormat("0{0,1}>", _alarmMinute);
+                display.AppendFormat("0{0,1}>", AlarmMinute);
             }
             else
             {
-                display.AppendFormat("{0,1}>", _alarmMinute);
+                display.AppendFormat("{0,1}>", AlarmMinute);
             }
 
             return display.ToString();

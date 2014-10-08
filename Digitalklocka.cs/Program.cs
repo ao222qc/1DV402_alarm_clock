@@ -88,13 +88,9 @@ namespace Digitalklocka.cs
                 else 
                 {
                     Console.WriteLine(ac.ToString());
-                }
-                
+                }    
             }
-
-
         }
-
        private static void ViewErrorMessage(string message) //Anropas för att skriva ut felmeddelande. Mainmetoden är för fint för sånt.
        {
            Console.BackgroundColor = ConsoleColor.DarkRed;
@@ -105,6 +101,6 @@ namespace Digitalklocka.cs
        private static void ViewTestHeader(string header)
        {
            Console.WriteLine(header);
-       } //anropas för att skriva ut meddelande.
+       } //anropas för att skriva ut meddelande + min "linje" som strukturerar upp lite.
     } 
 }
